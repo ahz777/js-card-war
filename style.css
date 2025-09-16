@@ -1,0 +1,67 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: url("./background.png");
+  user-select: none;
+}
+#game-container {
+  margin: auto;
+  background-color: #053d00;
+  width: 500px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: scroll;
+}
+#draw-cards {
+  width: 100%;
+  height: 50px;
+  background-color: rgb(207, 207, 0);
+  border: none;
+  font-size: 25px;
+  font-weight: 700;
+  color: black;
+  cursor: pointer;
+  margin-top: auto;
+}
+#draw-cards:active {
+  background-color: rgb(159, 159, 0);
+}
+#draw-cards:disabled {
+  background-color: rgb(80, 80, 60);
+  cursor: not-allowed;
+}
+#draw-cards:disabled:active {
+  background-color: rgb(80, 80, 60);
+}
+#new-deck {
+  margin-top: 10px;
+  width: 80px;
+  background-color: rgb(207, 207, 0);
+  border: none;
+  height: 30px;
+  color: black;
+  cursor: pointer;
+  font-weight: 600;
+  align-self: flex-start;
+  border-radius: 0 5px 5px 0;
+}
+#new-deck:active {
+  background-color: rgb(159, 159, 0);
+}
+#computer-card,
+#player-card {
+  width: 150px;
+  height: 210px;
+  border: 1px solid black;
+  border-radius: 9px;
+}
+#player-card {
+  margin-top: 20px;
+}
+img {
+  width: 100%;
+  height: 100%;
+}
