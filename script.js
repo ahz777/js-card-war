@@ -1,13 +1,26 @@
 // https://www.deckofcardsapi.com/
 
 let deckID;
+let computerScore = 0;
+let playerScore = 0;
 const drawBtn = document.getElementById("draw-cards");
 const newDeckBtn = document.getElementById("new-deck");
 const cardsContainer = document.getElementById("cards");
+const gameOverScreen = document.getElementById("game-over");
+const playAgainBtn = document.getElementById("play-again");
 
 drawBtn.setAttribute("disabled", true);
 
 const handleNewDeck = () => {
+  // Hide game over screen if visible
+  gameOverScreen.classList.remove("show");
+
+  // Reset scores
+  computerScore = 0;
+  playerScore = 0;
+  document.getElementById("computer-score").textContent = "0";
+  document.getElementById("player-score").textContent = "0";
+
   // Reset any existing card effects
   document.querySelectorAll(".winning-card").forEach((card) => {
     card.classList.remove("winning-card");
@@ -87,18 +100,25 @@ const handleDraw = () => {
       const result = winnerCard(data.cards[0], data.cards[1]);
       turnWinner.innerText = result;
 
-      // Apply appropriate classes based on the result
+      // Apply appropriate classes based on the result and update scores
       if (result === "War!") {
         turnWinner.classList.add("war");
         // Both cards get the effect in case of war
         computerCard.classList.add("winning-card");
         playerCard.classList.add("winning-card");
+        // No score change for war
       } else if (result === "Computer wins!") {
         turnWinner.classList.add("computer-wins");
         computerCard.classList.add("winning-card");
+        // Update computer score
+        computerScore++;
+        document.getElementById("computer-score").textContent = computerScore;
       } else {
         turnWinner.classList.add("player-wins");
         playerCard.classList.add("winning-card");
+        // Update player score
+        playerScore++;
+        document.getElementById("player-score").textContent = playerScore;
       }
 
       // Update remaining cards display
@@ -107,9 +127,31 @@ const handleDraw = () => {
         remainingCards.textContent = data.remaining;
       }
 
-      // Disable draw button if no cards remain
+      // Check if game is over (no cards remain)
       if (data.remaining === 0) {
         drawBtn.setAttribute("disabled", true);
+
+        // Show game over screen after a short delay
+        setTimeout(() => {
+          // Update final scores
+          document.getElementById("final-computer-score").textContent =
+            computerScore;
+          document.getElementById("final-player-score").textContent =
+            playerScore;
+
+          // Set final message based on who won
+          const finalMessage = document.getElementById("final-message");
+          if (computerScore > playerScore) {
+            finalMessage.textContent = "Computer wins the game!";
+          } else if (playerScore > computerScore) {
+            finalMessage.textContent = "You win the game!";
+          } else {
+            finalMessage.textContent = "It's a tie!";
+          }
+
+          // Show game over screen
+          gameOverScreen.classList.add("show");
+        }, 1500);
       }
     })
     .catch((error) => console.error("Fetch error", error));
@@ -144,5 +186,7 @@ function winnerCard(card1, card2) {
   }
 }
 
+// Event listeners
 newDeckBtn.addEventListener("click", handleNewDeck);
 drawBtn.addEventListener("click", handleDraw);
+playAgainBtn.addEventListener("click", handleNewDeck);
