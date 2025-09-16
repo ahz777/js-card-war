@@ -1,67 +1,308 @@
+/* Base Styles */
 html,
 body {
   margin: 0;
   padding: 0;
   background: url("./background.png");
   user-select: none;
+  font-family: Arial, sans-serif;
+  height: 100%;
 }
+
+/* Game Container */
 #game-container {
   margin: auto;
   background-color: #053d00;
-  width: 500px;
-  height: 100vh;
+  width: 90%;
+  max-width: 500px;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: scroll;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
+
+/* Title Styling */
+#title {
+  color: #ffcc00;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 10px;
+}
+
+/* Status Information */
+#remaining-cards {
+  color: #ffffff;
+  font-weight: 500;
+  text-align: center;
+  margin: 10px 0;
+}
+
+#turn-winner {
+  color: #ffffff;
+  font-weight: 500;
+  text-align: center;
+  margin: 10px 0;
+  font-size: 1.2rem;
+  height: 30px;
+  line-height: 30px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+/* Highlight winner message based on result */
+#turn-winner.player-wins {
+  background-color: rgba(0, 255, 0, 0.2);
+}
+
+#turn-winner.computer-wins {
+  background-color: rgba(255, 0, 0, 0.2);
+}
+
+#turn-winner.war {
+  background-color: rgba(255, 255, 0, 0.2);
+}
+
+/* Score Display */
+#computer,
+#player {
+  color: #ffffff;
+  margin: 10px 0;
+  padding: 5px 10px;
+  border-radius: 5px;
+  width: 100%;
+  text-align: center;
+}
+
+#computer {
+  background-color: rgba(255, 0, 0, 0.2);
+}
+
+#player {
+  background-color: rgba(0, 255, 0, 0.2);
+}
+
+/* Cards Layout */
+#cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  margin: 15px 0;
+  width: 100%;
+}
+
+/* Card Styling with animations */
+#computer-card,
+#player-card {
+  width: 150px;
+  height: 210px;
+  border-radius: 9px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.winning-card::before,
+.winning-card::after {
+  content: "";
+  position: absolute;
+  left: -10px;
+  right: -10px;
+  top: -10px;
+  bottom: -10px;
+  border-radius: 15px;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 0, 0, 0.5),
+    rgba(255, 165, 0, 0.5),
+    rgba(255, 255, 0, 0.5),
+    rgba(255, 165, 0, 0.5),
+    rgba(255, 0, 0, 0.5)
+  );
+  z-index: -1;
+  filter: blur(10px);
+  animation: fire 3s infinite alternate;
+  opacity: 0.8;
+}
+
+.winning-card::after {
+  filter: blur(20px);
+  animation-duration: 2s;
+  animation-delay: 0.5s;
+}
+
+@keyframes fire {
+  0% {
+    background-position: 0% 50%;
+    transform: scale(0.95);
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+    transform: scale(1.05);
+  }
+}
+
+/* Card Images */
+.card-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Button Styling */
 #draw-cards {
   width: 100%;
   height: 50px;
   background-color: rgb(207, 207, 0);
   border: none;
+  border-radius: 5px;
   font-size: 25px;
   font-weight: 700;
   color: black;
   cursor: pointer;
   margin-top: auto;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 0 rgb(159, 159, 0);
 }
+
+#draw-cards:hover {
+  background-color: rgb(227, 227, 0);
+  transform: translateY(-2px);
+}
+
 #draw-cards:active {
   background-color: rgb(159, 159, 0);
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 rgb(159, 159, 0);
 }
+
 #draw-cards:disabled {
   background-color: rgb(80, 80, 60);
   cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
 }
-#draw-cards:disabled:active {
-  background-color: rgb(80, 80, 60);
-}
+
 #new-deck {
   margin-top: 10px;
-  width: 80px;
+  width: 100px;
   background-color: rgb(207, 207, 0);
   border: none;
-  height: 30px;
+  height: 40px;
   color: black;
   cursor: pointer;
   font-weight: 600;
   align-self: flex-start;
-  border-radius: 0 5px 5px 0;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 0 rgb(159, 159, 0);
 }
+
+#new-deck:hover {
+  background-color: rgb(227, 227, 0);
+  transform: translateY(-2px);
+}
+
 #new-deck:active {
   background-color: rgb(159, 159, 0);
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 rgb(159, 159, 0);
 }
-#computer-card,
-#player-card {
-  width: 150px;
-  height: 210px;
-  border: 1px solid black;
-  border-radius: 9px;
-}
-#player-card {
-  margin-top: 20px;
-}
-img {
+
+/* Game Over Screen */
+#game-over {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 10;
+}
+
+#game-over.show {
+  display: flex;
+}
+
+#game-over h2 {
+  color: #ffcc00;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#game-over p {
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+#play-again {
+  padding: 10px 20px;
+  background-color: rgb(207, 207, 0);
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: black;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#play-again:hover {
+  background-color: rgb(227, 227, 0);
+  transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  #game-container {
+    width: 100%;
+    padding: 10px;
+  }
+
+  #cards {
+    gap: 15px;
+  }
+
+  #computer-card,
+  #player-card {
+    width: 120px;
+    height: 168px;
+  }
+
+  #title {
+    font-size: 1.5rem;
+  }
+
+  #draw-cards,
+  #new-deck {
+    font-size: 1.2rem;
+  }
+}
+
+/* Animation for card drawing */
+@keyframes drawCard {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.card-drawn {
+  animation: drawCard 0.5s ease forwards;
 }
