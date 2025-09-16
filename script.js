@@ -100,7 +100,7 @@ const handleDraw = () => {
       const result = winnerCard(data.cards[0], data.cards[1]);
       turnWinner.innerText = result;
 
-      // Apply appropriate classes based on the result and update scores
+      // Apply appropriate classes based on the result
       if (result === "War!") {
         turnWinner.classList.add("war");
         // Both cards get the effect in case of war
