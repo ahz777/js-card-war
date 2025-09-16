@@ -96,4 +96,4 @@ Notes:
 
 ## License
 
-This project is provided as-is without a specific license. Add a license if you plan to distribute or modify publicly.
+This project is licensed under the MIT License — see `LICENSE` for details.
