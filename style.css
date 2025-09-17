@@ -96,8 +96,8 @@ body {
 /* Card Styling with animations */
 #computer-card,
 #player-card {
-  width: 150px;
-  height: 210px;
+  max-width: 150px;
+  max-height: 210px;
   border-radius: 9px;
   background-color: #00000030;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -294,10 +294,26 @@ body {
   box-shadow: 0 2px 0 rgb(159, 159, 0);
 }
 
+/* Animation for card drawing */
+@keyframes drawCard {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.card-drawn {
+  animation: drawCard 0.5s ease forwards;
+}
+
 /* Responsive Design */
-@media (max-width: 600px) {
+@media (max-height: 920px) {
   #game-container {
-    width: 100%;
+    height: 100%;
     padding: 10px;
   }
 
@@ -315,24 +331,35 @@ body {
     font-size: 1.5rem;
   }
 
-  #draw-cards,
-  #new-deck {
+  #draw-cards {
     font-size: 1.2rem;
+    margin-bottom: 20px;
   }
 }
-
-/* Animation for card drawing */
-@keyframes drawCard {
-  0% {
-    opacity: 0;
-    transform: translateY(-20px) scale(0.8);
+@media (max-height: 730px) {
+  #cards {
+    flex-direction: row;
+    justify-content: space-evenly;
   }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
+  #computer,
+  #player {
+    width: 50%;
+    font-size: 15px;
   }
-}
 
-.card-drawn {
-  animation: drawCard 0.5s ease forwards;
+  #computer {
+    align-self: flex-start;
+  }
+  #player {
+    align-self: flex-end;
+  }
+  #title {
+    font-size: 1.2rem;
+    margin: 0;
+    margin-top: 5px;
+  }
+  #turn-winner {
+    font-size: 1rem;
+    margin: 0;
+  }
 }
