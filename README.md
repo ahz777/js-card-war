@@ -96,4 +96,4 @@ Notes:
 
 ## License
 
-This project is licensed under the MIT License — see `LICENSE` for details.
+This project is licensed under the MIT License — see [LICENSE](https://github.com/ahz777/js-card-war/blob/main/LICENSE) for details.
